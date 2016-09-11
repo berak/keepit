@@ -10,4 +10,5 @@ i ooooooooooooooooooooooooooooooooooooooooo TITLE   (nohost)  1
 1 believe it or not, a gopher cli /gopher.py     (nohost)    70
 1 playing with matelight.rocks /mate   (nohost)    70
 1 a game. addictive.. /tetris   (nohost)    70
+1 a telnet client /telnet.go   (nohost)    70
 <pre>
