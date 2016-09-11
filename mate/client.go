@@ -2,17 +2,29 @@ package main
 
 import (
     "fmt"
-    "net"
     "time"
 )
 
-func CheckError(err error) {
-    if err  != nil {
-        fmt.Println("Error: " , err)
+func main() {
+    server := "127.0.0.1:1337"
+    z := [3]string{z1,z2,z3}
+
+    for i:=0;i<9999999; i++ {
+        txt := z[i%3]
+        fmt.Println(i)
+        fmt.Println(txt)
+        img := Logo(txt)
+        ok := CrapSend(server, img.b)
+        if ok != "ok" {
+            fmt.Println(i, ok)
+            break
+        }
+        time.Sleep(time.Second * 27)
     }
 }
 
-var z1 string =
+
+var z1 =
 `...                                  ...
 .                                      .
 .                                      .
@@ -28,9 +40,8 @@ var z1 string =
 .                                      .
 .                                      .
 .                                      .
-...                                  ...
-`
-var z2 string =
+...                                  ...`
+var z2 =
 `...                                  ...
 .                                      .
 .                                      .
@@ -46,9 +57,8 @@ var z2 string =
 .                                      .
 .                                      .
 .                                      .
-...                                  ...
-`
-var z3 string =
+...                                  ...`
+var z3 =
 `........................................
 ........................................
 ........................................
@@ -66,30 +76,3 @@ var z3 string =
 ........................................
 ........................................
 `
-
-func main() {
-    ServerAddr,err := net.ResolveUDPAddr("udp","127.0.0.1:1337")
-    CheckError(err)
-
-    LocalAddr, err := net.ResolveUDPAddr("udp", "127.0.0.1:0")
-    CheckError(err)
-
-    Conn, err := net.DialUDP("udp", LocalAddr, ServerAddr)
-    CheckError(err)
-
-    defer Conn.Close()
-    for i:=0;i<9999999; i++ {
-
-        img := Dots()
-        if i%3==0 { img=Logo(z1) }
-        if i%4==0 { img=Logo(z3) }
-        if i%7==0 { img=Logo(z2) }
-
-        n,err := Conn.Write(img.e)
-        if err != nil {
-            fmt.Println(n, err)
-            break
-        }
-        time.Sleep(time.Second * 27)
-    }
-}

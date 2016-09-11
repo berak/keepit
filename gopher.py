@@ -6,6 +6,7 @@ gopher.metafilter.com
 gopherspace.de
 redhill.net.nz
 http://gopher.floodgap.com/gopher/gw?gopher://gopher.floodgap.com:70/1/world
+https://tools.ietf.org/search/rfc1436
 """
 
 import sys, socket
@@ -19,7 +20,7 @@ def readline(sock):
         elif c==b'\r': continue
         else:          s += c
     return s
-    
+
 ser = sys.argv[1]
 pretty = False;
 if len(sys.argv)>2: pretty = sys.argv[2]
