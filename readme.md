@@ -11,3 +11,4 @@ i ooooooooooooooooooooooooooooooooooooooooo TITLE   (nohost)  1
 1 playing with matelight.rocks /mate   (nohost)    70
 1 a game. addictive.. /tetris   (nohost)    70
 <pre>
+![]({{site.baseurl}}//lfw2stdev.png)
