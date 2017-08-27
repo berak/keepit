@@ -8,3 +8,4 @@
     a:hover{  color:#ddd; }
     body{  margin: 15 15 15 15;  border: 0; }
     textarea,pre{  font-family: Lucida Console; }
+    table { table-layout: fixed; }
