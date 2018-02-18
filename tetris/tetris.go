@@ -231,7 +231,7 @@ func (me *Tetris) set(y,x,v int) {
 }
 
 func newGame(w,h int) (*Tetris) {
-	t:= new(Tetris)
+	t := new(Tetris)
 	t.w = w
 	t.h = h
 	t.v = make([]int, w * h)

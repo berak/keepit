@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html><head>
+<style>
+  .main {
+      font-family: Arial, "MS Trebuchet", sans-serif;  font-size: 12;
+      border:0;
+      margin-top: 15px;  margin-bottom: 15px;  margin-right: 15px;  margin-left: 15px;
+  }
+  p,.bordered {
+      margin-top: 5px;  margin-bottom: 5px;  margin-right: 5px;  margin-left: 5px;
+  }
+  .bordered {
+      border-color:#777;
+      border-style:solid;
+  }
+</style>
+<script type='text/javascript'>
+  var ticks=0;
+
+  function postCanvasToURL(url) { // this is the actual workhorse
+    document.getElementById("uploadbtn").style.enabled = false
+    var type = "image/png"
+    var data = document.getElementById("output").toDataURL(type);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function(e) {
+      if ( this.readyState > 3 ) {
+       render(this.response, "result");
+      }
+    }
+    data = data.replace('data:' + type + ';base64,', '');
+    xhr.send(data)
+  }
+  function render(src, dst){
+    //err.innerHTML = dst + "  " + src.substring(0,100);
+    var image = new Image();
+    image.onload = function(){
+      var canvas = document.getElementById(dst);
+      var MAX_W = 640;
+      var MAX_H = 480;
+      if (image.height > MAX_H || image.width > MAX_W) {
+        var scale = (image.width < image.height) ?
+          MAX_H / image.height :
+          MAX_W / image.width ;
+        image.height *= scale;
+        image.width  *= scale;
+      }
+      var ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.drawImage(image, 0, 0, image.width, image.height);
+    };
+    image.src = src;
+  }
+  function _load_image(src, dst){
+    if(!src.type.match(/image.*/)){
+      console.log("The dropped file is not an image: ", src.type);
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(e){
+      render(e.target.result, dst);
+    };
+    reader.readAsDataURL(src);
+  }
+  function loadImageDrag(src){
+    _load_image(src, "output");
+  }
+  function loadImageFile(src){
+    var up = document.getElementById("upload")
+    var oFile = up.files[0];
+    _load_image(oFile, "output");
+  }
+</script>
+</head>
+
+<body class="main">
+  <div id="droparea">
+      <canvas id="output" width=320 height=240 class="bordered"></canvas>
+      <canvas id="result" width=320 height=240 class="bordered"></canvas>
+      <div>
+          <p>Drop files here, or</p>
+          <p> <input id="upload" type="file" multiple onChange="loadImageFile();"/></p>
+          <p> <input id="uploadbtn" type="button" value="Colorize" onClick="postCanvasToURL('http://localhost:9000/up');"/></p>
+          <p> <div id="err"></div></p>
+      </div>
+  </div>
+</body>
+
+<script type='text/javascript'>
+  var target = document.getElementById("droparea");
+  target.addEventListener("dragover", function(e){e.preventDefault();}, true);
+  target.addEventListener("drop", function(e){
+    e.preventDefault();
+    loadImageDrag(e.dataTransfer.files[0]);
+  }, true);
+</script>
+</html>
