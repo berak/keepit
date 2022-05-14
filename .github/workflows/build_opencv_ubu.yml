@@ -23,12 +23,12 @@ jobs:
     - name: Fetch
       run: |
        git clone --single-branch https://github.com/opencv/opencv.git /opencv
-       git clone --single-branch https://github.com/opencv/opencv_cotrib.git /opencv_contrib
+       git clone --single-branch https://github.com/opencv/opencv_contrib.git /opencv_contrib
     - name: Configure OpenCV
       run: |
         cd /opencv-contrib-build
         cmake -G Ninja ${{ env.EXTRA_CMAKE_OPTIONS }} -DOPENCV_EXTRA_MODULES_PATH=${{ env.OPENCV_CONTRIB_DOCKER_WORKDIR }}/modules /opencv
-    - name: Build OpenCV
-      run: |
-        cd /opencv-contrib-build
-        ninja
+ #   - name: Build OpenCV
+ #     run: |
+ #       cd /opencv-contrib-build
+ #       ninja
