@@ -1,0 +1,42 @@
+name: PR:4.x U20
+
+on:
+  pull_request:
+    branches:
+      - 4.x
+
+env:
+  OPENCV_CONTRIB: 'https://github.com/opencv/opencv_contrib'
+  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+  PR_AUTHOR_FORK: ${{ github.event.pull_request.head.repo.full_name }}
+  SOURCE_BRANCH_NAME: ${{ github.head_ref }}
+  TARGET_BRANCH_NAME: ${{ github.base_ref }}
+  ANT_HOME: '/usr/share/ant'
+  PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
+
+jobs:
+  BuildAll:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+    container:
+      image: quay.io/asenyaev/opencv-ubuntu:20.04
+    steps:
+    - name: Init
+      run: |
+        mkdir /opencv
+        mkdir /opencv_contrib
+        mkdir /opencv-contrib-build
+    - name: Fetch
+      run: |
+       git clone --single-branch https://github.com/opencv/opencv.git /opencv
+       git clone --single-branch https://github.com/opencv/opencv_cotrib.git /opencv_contrib
+    - name: Configure OpenCV
+      run: |
+        cd /opencv-contrib-build
+        cmake -G Ninja ${{ env.EXTRA_CMAKE_OPTIONS }} -DOPENCV_EXTRA_MODULES_PATH=${{ env.OPENCV_CONTRIB_DOCKER_WORKDIR }}/modules /opencv
+    - name: Build OpenCV
+      run: |
+        cd /opencv-contrib-build
+        ninja
