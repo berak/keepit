@@ -1,16 +1,8 @@
-name: PR:4.x U20
-
-on:
-  pull_request:
-    branches:
-      - 4.x
+name: build_opencv_ubu
+on: workflow_dispatch
 
 env:
   OPENCV_CONTRIB: 'https://github.com/opencv/opencv_contrib'
-  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-  PR_AUTHOR_FORK: ${{ github.event.pull_request.head.repo.full_name }}
-  SOURCE_BRANCH_NAME: ${{ github.head_ref }}
-  TARGET_BRANCH_NAME: ${{ github.base_ref }}
   ANT_HOME: '/usr/share/ant'
   PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
 
