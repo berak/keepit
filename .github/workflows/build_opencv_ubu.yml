@@ -15,11 +15,12 @@ jobs:
     container:
       image: quay.io/asenyaev/opencv-ubuntu:20.04
     steps:
-#    - name: Init
-#      run: |
-#        mkdir /opencv
-#        mkdir /opencv_contrib
-#        mkdir /opencv-contrib-build
+    - name: Init
+      run: |
+        mkdir -p /opencv
+        mkdir -p /opencv_contrib
+        mkdir -p /opencv-contrib-build
+        ls -l opencv*
     - name: Fetch
       run: |
        echo fetch contrib
