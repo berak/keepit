@@ -5,7 +5,7 @@ env:
   OPENCV_CONTRIB: 'https://github.com/opencv/opencv_contrib'
   ANT_HOME: '/usr/share/ant'
   PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
-  EXTRA_CMAKE_OPTIONS: '-DCMAKE_INSTALL_PREFIX=/dist -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF -DWITH_OPENEXR=OFF -DBUILD_opencv_gapi=OFF -DWITH_ADE=OFF -DBUILD_opencv_python3=OFF -DBUILD_opencv_python2=OFF -DBUILD_opencv_apps=OFF '
+  EXTRA_CMAKE_OPTIONS: '-DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF -DWITH_OPENEXR=OFF -DBUILD_opencv_gapi=OFF -DWITH_ADE=OFF -DBUILD_opencv_python3=OFF -DBUILD_opencv_python2=OFF -DBUILD_opencv_apps=OFF '
 
 jobs:
   BuildAll:
@@ -22,7 +22,7 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        echo v 0019
+        echo v 0021
     - name: Fetch
       run: |
        echo fetch contrib
@@ -32,7 +32,7 @@ jobs:
     - name: Configure OpenCV
       run: |
         cd /opencv-contrib-build
-        cmake -G Ninja ${{ env.EXTRA_CMAKE_OPTIONS }} -DOPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules /opencv
+        cmake -G Ninja ${{ env.EXTRA_CMAKE_OPTIONS }} -DOPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules/mcc /opencv
     - name: Build OpenCV
       run: |
         cd /opencv-contrib-build
