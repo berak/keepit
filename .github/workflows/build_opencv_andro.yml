@@ -4,7 +4,6 @@ on: workflow_dispatch
 env:
   OPENCV_CONTRIB: 'https://github.com/berak/opencv_contrib -b patch-1' # mcc patch
   ANT_HOME: '/usr/share/ant'
-  PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
   EXTRA_CMAKE_OPTIONS: '-DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF -DWITH_OPENEXR=OFF -DBUILD_opencv_gapi=OFF -DWITH_ADE=OFF -DBUILD_opencv_python3=OFF -DBUILD_opencv_python2=OFF -DBUILD_opencv_apps=OFF '
 
 jobs:
@@ -33,4 +32,4 @@ jobs:
       run: |
         cd /opencv/platforms/android
         ls -l
-        /opencv/platforms/android/build_sdk.py
+        python3 /opencv/platforms/android/build_sdk.py --extra_modules_path=/opencv_contrib/modules/mcc
