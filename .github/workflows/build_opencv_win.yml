@@ -1,0 +1,38 @@
+name: build_opencv_win
+on: workflow_dispatch
+
+env:
+  EXTRA_CMAKE_OPTIONS: '-DCL_Z_OPTION=/Z7 -DOPENCV_DOWNLOAD_PATH=%BINARIES_CACHE% -DBUILD_EXAMPLES=OFF -DOPENCV_ENABLE_NONFREE=ON -DCMAKE_BUILD_TYPE=Release'
+
+jobs:
+  BuildAll:
+    runs-on: opencv-cn-win
+    defaults:
+      run:
+        shell: cmd
+    steps:
+    - name: Init
+      run: |
+        mkdir -p /dist
+        mkdir -p /opencv
+        mkdir -p /opencv_contrib
+        mkdir -p /opencv-contrib-build
+        echo v 0001
+    - name: Fetch
+      run: |
+       echo fetch contrib
+       git clone ${{ env.OPENCV_CONTRIB }} /opencv_contrib
+       echo fetch main
+       git clone https://github.com/opencv/opencv.git /opencv
+ 
+    - name: Configure OpenCV
+      run: |
+        cd /opencv-contrib-build
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+        cmake -G Ninja ${{ env.EXTRA_CMAKE_OPTIONS }} ${{ github.workspace }}\opencv
+    - name: Build OpenCV
+      run: |
+        cd /opencv-contrib-build
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+        ninja
+ 
