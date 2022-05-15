@@ -33,4 +33,4 @@ jobs:
       run: |
         cd /opencv/platforms/android
         ls -l
-        build_sdk.py
+        /opencv/platforms/android/build_sdk.py
