@@ -13,26 +13,26 @@ jobs:
     steps:
     - name: Init
       run: |
-        mkdir -p /dist
-        mkdir -p /opencv
-        mkdir -p /opencv_contrib
-        mkdir -p /opencv-contrib-build
-        echo v 0002
+        mkdir c:\dist
+        mkdir c:\opencv
+        mkdir c:\opencv_contrib
+        mkdir c:\opencv-contrib-build
+        echo v 0003
     - name: Fetch
       run: |
        echo fetch contrib
-       git clone ${{ env.OPENCV_CONTRIB }} /opencv_contrib
+       git clone ${{ env.OPENCV_CONTRIB }} c:\opencv_contrib
        echo fetch main
-       git clone https://github.com/opencv/opencv.git /opencv
+       git clone https://github.com/opencv/opencv.git c:\opencv
  
     - name: Configure OpenCV
       run: |
-        cd /opencv-contrib-build
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
-        cmake -G Ninja ${{ env.EXTRA_CMAKE_OPTIONS }} ${{ github.workspace }}\opencv
+        cd c:\opencv-contrib-build
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat" ${{ github.workspace }}
+        cmake -G Ninja ${{ env.EXTRA_CMAKE_OPTIONS }} c:\opencv
     - name: Build OpenCV
       run: |
-        cd /opencv-contrib-build
+        cd c:\opencv-contrib-build
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
         ninja
  
