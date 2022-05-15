@@ -22,7 +22,7 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        echo v 0021
+        echo v 0022
     - name: Fetch
       run: |
        echo fetch contrib
@@ -41,8 +41,8 @@ jobs:
     - name: keep java
       run: |
        ls -l /dist
-       cp lib/libopencv_java455.so /dist
-       cp bin/opencv-455.jar /dist
+       cp /opencv-contrib-build/lib/libopencv_java455.so /dist
+       cp /opencv-contrib-build/bin/opencv-455.jar /dist
        
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
