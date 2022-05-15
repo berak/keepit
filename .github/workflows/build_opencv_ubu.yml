@@ -5,7 +5,7 @@ env:
   OPENCV_CONTRIB: 'https://github.com/opencv/opencv_contrib'
   ANT_HOME: '/usr/share/ant'
   PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
-  EXTRA_CMAKE_OPTIONS: '-DCMAKE_INSTALL_PREFIX=/dist'
+  EXTRA_CMAKE_OPTIONS: '-DCMAKE_INSTALL_PREFIX=/dist -DBUILD_SHARED_LIBS=OFF'
 
 jobs:
   BuildAll:
@@ -22,7 +22,7 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        echo v 0013
+        echo v 0014
     - name: Fetch
       run: |
        echo fetch contrib
@@ -33,20 +33,20 @@ jobs:
       run: |
         cd /opencv-contrib-build
         cmake -G Ninja ${{ env.EXTRA_CMAKE_OPTIONS }} -DOPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules /opencv
- #   - name: Build OpenCV
- #     run: |
- #       cd /opencv-contrib-build
- #       ninja
+    - name: Build OpenCV
+      run: |
+        cd /opencv-contrib-build
+        ninja
 
     - name: sim build
       run: |
        echo 1 > /dist/1.txt
-       echo 1 > /dist/2.txt
-       echo 1 > /dist/3.txt
+       echo 2 > /dist/2.txt
+       echo 3 > /dist/3.txt
        
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
-        name: artifact
+        name: opencv
         path: /dist
        
