@@ -2,7 +2,7 @@ name: build_opencv_ubu
 on: workflow_dispatch
 
 env:
-  OPENCV_CONTRIB: 'https://github.com/opencv/opencv_contrib'
+  OPENCV_CONTRIB: 'https://github.com/berak/opencv_contrib -b patch-1' # mcc patch
   ANT_HOME: '/usr/share/ant'
   PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
   EXTRA_CMAKE_OPTIONS: '-DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF -DWITH_OPENEXR=OFF -DBUILD_opencv_gapi=OFF -DWITH_ADE=OFF -DBUILD_opencv_python3=OFF -DBUILD_opencv_python2=OFF -DBUILD_opencv_apps=OFF '
@@ -22,11 +22,11 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        echo v 0022
+        echo v 0023
     - name: Fetch
       run: |
        echo fetch contrib
-       git clone https://github.com/opencv/opencv_contrib.git /opencv_contrib
+       git clone ${{ env.OPENCV_CONTRIB }} /opencv_contrib
        echo fetch main
        git clone https://github.com/opencv/opencv.git /opencv
     - name: Configure OpenCV
