@@ -22,7 +22,7 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        echo v 0016
+        echo v 0017
     - name: Fetch
       run: |
        echo fetch contrib
@@ -36,10 +36,11 @@ jobs:
     - name: Build OpenCV
       run: |
         cd /opencv-contrib-build
-        ninja
+        ninja install
 
     - name: sim build
       run: |
+       ls -l /dist
        echo 1 > /dist/1.txt
        echo 2 > /dist/2.txt
        echo 3 > /dist/3.txt
