@@ -5,7 +5,7 @@ env:
   OPENCV_CONTRIB: 'https://github.com/opencv/opencv_contrib'
   ANT_HOME: '/usr/share/ant'
   PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
-  EXTRA_CMAKE_OPTIONS: '-DCMAKE_INSTALL_PREFIX=/dist -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF -DWITH_OPENEXR=OFF'
+  EXTRA_CMAKE_OPTIONS: '-DCMAKE_INSTALL_PREFIX=/dist -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF -DWITH_OPENEXR=OFF -DBUILD_opencv_gapi=OFF -DWITH_ADE=OFF'
 
 jobs:
   BuildAll:
@@ -22,7 +22,7 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        echo v 0015
+        echo v 0016
     - name: Fetch
       run: |
        echo fetch contrib
