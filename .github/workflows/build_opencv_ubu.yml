@@ -5,6 +5,7 @@ env:
   OPENCV_CONTRIB: 'https://github.com/opencv/opencv_contrib'
   ANT_HOME: '/usr/share/ant'
   PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
+  EXTRA_CMAKE_OPTIONS: ''
 
 jobs:
   BuildAll:
@@ -20,7 +21,7 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        ls -l opencv*
+        ls -l 
     - name: Fetch
       run: |
        echo fetch contrib
