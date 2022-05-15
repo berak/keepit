@@ -22,7 +22,7 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        echo v 0001
+        echo v 0002
     - name: Fetch
       run: |
        echo fetch contrib
@@ -32,4 +32,4 @@ jobs:
     - name: Run Platform Build
       run: |
         cd /opencv/platforms/android
-        python build_sdk.py
+        build_sdk.py
