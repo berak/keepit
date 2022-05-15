@@ -32,4 +32,5 @@ jobs:
     - name: Run Platform Build
       run: |
         cd /opencv/platforms/android
+        ls -l
         build_sdk.py
