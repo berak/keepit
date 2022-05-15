@@ -5,7 +5,7 @@ env:
   OPENCV_CONTRIB: 'https://github.com/opencv/opencv_contrib'
   ANT_HOME: '/usr/share/ant'
   PYTHONPATH: /opencv-contrib-build/python_loader:$PYTHONPATH
-  EXTRA_CMAKE_OPTIONS: '-DCMAKE_INSTALL_PREFIX=/dist -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF -DWITH_OPENEXR=OFF -DBUILD_opencv_gapi=OFF -DWITH_ADE=OFF'
+  EXTRA_CMAKE_OPTIONS: '-DCMAKE_INSTALL_PREFIX=/dist -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF -DWITH_OPENEXR=OFF -DBUILD_opencv_gapi=OFF -DWITH_ADE=OFF -DBUILD_opencv_python3=OFF -DBUILD_opencv_python2=OFF -DBUILD_opencv_apps=OFF '
 
 jobs:
   BuildAll:
@@ -22,7 +22,7 @@ jobs:
         mkdir -p /opencv
         mkdir -p /opencv_contrib
         mkdir -p /opencv-contrib-build
-        echo v 0017
+        echo v 0019
     - name: Fetch
       run: |
        echo fetch contrib
@@ -36,14 +36,13 @@ jobs:
     - name: Build OpenCV
       run: |
         cd /opencv-contrib-build
-        ninja install
+        ninja
 
-    - name: sim build
+    - name: keep java
       run: |
        ls -l /dist
-       echo 1 > /dist/1.txt
-       echo 2 > /dist/2.txt
-       echo 3 > /dist/3.txt
+       cp lib/libopencv_java455.so /dist
+       cp bin/opencv-455.jar /dist
        
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
