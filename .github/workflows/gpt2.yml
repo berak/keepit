@@ -32,5 +32,5 @@ jobs:
         curl https://api-inference.huggingface.co/models/bert-base-uncased \
           -X POST \
           -d '{"inputs":"The answer to the universe is [MASK]."}' \
-          -H "Authorization: Bearer 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"
+          #-H "'Authorization: Bearer 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'"
    
