@@ -27,4 +27,10 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
-      run: echo "Hello ${{ github.event.inputs.name }}"
+      run:
+        echo "Hello ${{ github.event.inputs.name }}"
+        curl https://api-inference.huggingface.co/models/bert-base-uncased \
+          -X POST \
+          -d '{"inputs":"The answer to the universe is [MASK]."}' \
+          -H "Authorization: Bearer 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"
+   
